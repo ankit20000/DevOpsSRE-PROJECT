@@ -1,0 +1,4 @@
+command: |
+    if [ "${CIRCLE_BRANCH}" == "master" ];
+      then ansible-playbook site.yml -i production;
+    fi
