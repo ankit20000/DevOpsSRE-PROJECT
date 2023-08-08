@@ -1,0 +1,9 @@
+---
+
+- name: running the file
+  hosts: n1
+  become: yes
+  roles:
+    - new
+
+...

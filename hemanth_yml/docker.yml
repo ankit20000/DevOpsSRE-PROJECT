@@ -1,0 +1,28 @@
+---
+- name: installation
+  hosts: n1
+  become: yes
+
+  tasks:
+    - name: Update package lists
+      apt:
+        update_cache: yes
+
+    - name: Install docker.
+      apt:
+        name: docker.io
+        state: present
+
+    - name: stopping docker.
+      service:
+        name: docker
+        state: stopped
+      tags: stop_docker
+
+    - name: starting docker again
+      service: 
+        name: docker
+        state: started
+
+
+...

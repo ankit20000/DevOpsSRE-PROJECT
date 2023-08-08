@@ -1,0 +1,19 @@
+---
+
+- name: cloning the repo to the remote server
+  hosts: n1
+  become: yes
+
+  tasks:
+    - name: upating
+      apt:
+        update_cache: yes
+    
+
+    - name: cloning the git repo
+      ansible.builtin.git:
+        repo: 'https://github.com/ankit20000/DevOpsSRE-PROJECT.git'
+        dest: /home/ubuntu/DevOpsSRE-PROJECT
+        version: hemanth_devops
+
+...

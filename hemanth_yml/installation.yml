@@ -1,0 +1,31 @@
+---
+- name: installation
+  hosts: n1
+  become: yes
+
+  tasks:
+    - name: Update package lists
+      apt:
+        update_cache: yes
+
+    - name: install ngnix
+      apt:
+        name: nginx
+        state: present
+
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: enable nginx
+      service:
+        name: nginx
+        enabled: yes
+
+    - name: creating a folder
+      ansible.builtin.file:
+        path: /home/ubuntu/file
+        state: directory
+
+...

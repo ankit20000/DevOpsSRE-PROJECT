@@ -1,0 +1,18 @@
+---
+# handlers file for new
+
+ - name: start mysql server
+   service:
+     name: mysql-server
+     state: started
+
+ - name: stopping docker.
+   service:
+     name: docker
+     state: stopped
+   tags: stop_docker
+
+ - name: starting docker again
+   service:
+     name: docker
+     state: started

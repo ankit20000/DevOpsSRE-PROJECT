@@ -1,0 +1,24 @@
+---
+# tasks file for new
+
+    - name: Update package lists
+      apt:
+        update_cache: yes
+      notify: 
+      - stopping docker.
+      - starting docker again
+
+    - name: install mysql server
+      apt:
+        name: mysql-server
+        state: present
+
+
+    - name: Install docker.
+      apt:
+        name: docker.io
+        state: present
+ 
+
+       
+...

@@ -1,0 +1,24 @@
+---
+- name: replacing the character with another character
+  hosts: n1
+  become: yes
+
+  tasks:
+    - name: upating
+      apt:
+        update_cache: yes
+
+    - name: removing the #
+      ansible.builtin.replace:
+        path: /etc/ssh/ssh_config
+        regexp: ' #   ForwardAgent no'
+        replace: 'ForwardAgent no'
+
+    - name: adding a new line
+      lineinfile:
+        path: /etc/ssh/ssh_config
+        line: "new text" 
+      
+
+...
+
