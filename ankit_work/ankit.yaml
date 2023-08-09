@@ -1,2 +1,11 @@
 bjkbk
 yaml fule
+
+SQUASH-
+  multiple commit into single 
+
+  git reset HEAD~3
+  GIT STATUS
+  GIT ADD .
+  GIT COMMIT --AMEND
+  git push --force
