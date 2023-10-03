@@ -1,4 +1,4 @@
-#vpc========
+######################vpc#############
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
@@ -7,7 +7,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-#IGW=========
+######################IGW###############
 resource "aws_internet_gateway" "IGW" {
   vpc_id = aws_vpc.main.id
   tags = {
@@ -15,35 +15,35 @@ resource "aws_internet_gateway" "IGW" {
   }
 }
 
-#routetable======
+####################routetable############
 resource "aws_route_table" "public-rt" {
   vpc_id = aws_vpc.main.id
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.rt_cidr
     gateway_id = aws_internet_gateway.IGW.id
   }
   tags = {
     Name = "public-rt"
   }
 }
-#subnet======
+###################subnet##################
 resource "aws_subnet" "subnet1-public" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.subnet_cidr
-  availability_zone = "ap-south-1a"
+  availability_zone = var.az
 
   tags = {
     Name = "Public-Subnet"
   }
 }
 
-#subnet association======
+#############subnet association###############
 resource "aws_route_table_association" "terraform-public-1" {
   subnet_id      = aws_subnet.subnet1-public.id
   route_table_id = aws_route_table.public-rt.id
 }
 
-# ec2-instance=========
+##########ec2-instance#################
 resource "aws_instance" "server-1" {
   ami = var.ami
   instance_type               = var.instance_type
@@ -52,50 +52,39 @@ resource "aws_instance" "server-1" {
   vpc_security_group_ids      = [aws_security_group.allow_all.id]
   associate_public_ip_address = true
   tags = {
-    Name       = "server-1"
+    Name       = var.server_name
   }
 }
 
-#securityGroup======
+#############securityGroup##############
+
+locals {
+  ingress = var.ingress
+  egress = var.egress
+}
 
 resource "aws_security_group" "allow_all" {
   name        = "allow_all"
-  description = "Allow all inbound traffic"
+  description = "Allow all traffic"
   vpc_id      = aws_vpc.main.id
 
-ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.allow_all]
-  }
-ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [var.allow_all]
+  dynamic "ingress" {
+    for_each = local.ingress
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = [var.allow_all]
+    }
   }
 
-ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [var.allow_all]
+  dynamic "egress" {
+    for_each = local.egress
+    content {
+      from_port   = egress.value
+      to_port     = egress.value
+      protocol    = "tcp"
+      cidr_blocks = [var.allow_all]
+    }
   }
-
-
-# ingress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = [var.allow_all]
-#   }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [var.allow_all]
-  }
-
 }
