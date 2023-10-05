@@ -1,5 +1,5 @@
 module "module" {
-source        = "git::https://github.com/kaulaskar/sailesh_dev.git?ref=module"
+source        = "git::https://github.com/ankit20000/DevOpsSRE-PROJECT.git?ref=sailesh_terraform_module"
 #   source        = "./module"
   vpc_cidr      = "10.0.0.0/16"
   ami           = "ami-0f5ee92e2d63afc18"
