@@ -1,0 +1,21 @@
+---
+- name: Install Nginx
+  hosts: nginx_server
+  become: yes
+
+  tasks:
+    - name: Update APT package cache 
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+      
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes

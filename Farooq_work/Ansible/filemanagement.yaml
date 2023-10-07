@@ -1,0 +1,64 @@
+---
+- name: Manage Files and Directories on ubuntu
+  hosts: filemanagement_server
+  become: yes
+  tasks: 
+    - name: create a directory
+      ansible.builtin.file:
+        path: /opt/devOps
+        state: touch 
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: create a file
+      ansible.builtin.file:
+        path: /opt/devOps/file.txt
+        state: touch
+        owner: root
+        group: root 
+        mode: '0644'
+
+    - name: change file ownership and permissions
+      ansible.builtin.file:
+        path: /var/www/html/index.nginx-debian.html
+        owner: root
+        group: root
+        mode: '0640'
+
+    - name: Delete a file
+      ansible.builtin.file:
+        path: /opt/dev/file.txt
+        state: absent 
+
+    - name: delete a directory
+      ansible.builtin.file:
+        path: /opt/
+        state: absent
+
+    - name: copy files from ansible to remote systems
+      ansible.builtin.copy:
+        src: /opt/newfile.txt
+        dest: /opt
+        owner: root
+        group: root
+        mode: '0644'   
+      tags: copy_file 
+
+    - name: Gitcheckout
+      ansible.builtin.git:
+        repo: #mention your git repo link enclosed within strings
+        dest: /opt/#mention repo name as it is in https url 
+        version: master
+
+    - name: Replace string in Ansible
+      replace:
+        path: /opt/test.var
+        regexp: "value"
+        replace: "default"   
+
+    - name: Replace a line in Ansible
+      lineinfile:
+        path: /opt/ssh_confi
+        regexp: '#   ForwardAgent no'
+        line: '#   ForwardAgent yes '
