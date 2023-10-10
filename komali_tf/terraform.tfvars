@@ -1,0 +1,16 @@
+ami_id= "ami-0f5ee92e2d63afc18"
+instance_type = "t2.micro"
+key_pair = "terraform_keypair"
+tag_name = "My_VPC"
+server = "My_Server"
+region = "ap-south-1"
+vpc_cidr = "10.0.0.0/16"
+cidr_public = "10.0.1.0/24"
+cidr_private = "10.0.2.0/24"
+public_az = "ap-south-1a"
+private_az = "ap-south-1b"
+IGW_cidr = "0.0.0.0/0"
+NAT_cidr = "0.0.0.0/0"
+ingress = [22,443,80]
+egress = [443,1433]
+allow_all = "0.0.0.0/0"
