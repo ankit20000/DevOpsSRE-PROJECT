@@ -1,0 +1,37 @@
+---
+    - name: install nginx server
+      apt:
+       name: nginx
+       state: present
+      when: ansible_distribution == 'Ubuntu'  
+    
+    - name: service 
+      service: 
+       name: nginx
+       state: started 
+       
+    - name: copy file from git to remote
+      ansible.builtin.git:
+       repo: "{{git}}"
+       dest: "{{destination}}"        
+
+    - name: copy file from controller to remote 
+      copy:
+        src: files/file.config
+        dest: "{{dest}}"
+        owner: root
+        group: root
+        mode: 0644
+    - name: copy file from controller to remote  using template
+      # vars:
+      #  server_name: remote_server
+      #  document_root: root_doc 
+      template:
+        src: templates/html.index.j2
+        dest: "{{dest1}}"
+        owner: root
+        group: root
+        mode: 0777
+      
+  
+ 
