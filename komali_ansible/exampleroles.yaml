@@ -1,0 +1,7 @@
+---
+- name: Execute examplerole
+  hosts: nginx_server
+  become: yes
+  roles:
+    - komali
+      

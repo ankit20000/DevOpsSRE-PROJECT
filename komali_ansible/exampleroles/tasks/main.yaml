@@ -1,0 +1,62 @@
+
+    - name: updating the system
+      apt:
+       update_cache: yes
+      become: yes 
+    - name: ensure nginx is at the latest version
+      apt: 
+       name: nginx 
+       state: present
+
+    - name: creating a directory in remote server
+      ansible.builtin.file:
+       path: /opt/ "{{ directory_name }}"
+       state: directory
+       owner: root
+       group: root
+       mode: '777'
+
+
+    - name: creating a file in remote server
+      ansible.builtin.file:
+       path: /opt/ "{{ directory_name }}"/ "{{ file_name }}"
+       state: touch
+       owner: root
+       group: root
+       mode: '646'
+
+
+    - name: change file owenrship and permissions
+      ansible.builtin.file:
+       path: /var/www/html/ "{{ htmlfile }}"
+       owner: root
+       group: root
+       mode: '777'
+
+
+    - name: Deleting directory in remote server
+      ansible.builtin.file:
+       path: /opt/ "{{ delete_directory }}"
+       state: absent
+
+
+    - name: Deleting file in remote server
+      ansible.builtin.file:
+       path: /opt/ "{{ delete_directory }}"/ "{{ delete_file }}"
+       state: absent
+
+    - name: clone the repo from github to remote server
+      ansible.builtin.git:
+       repo: 'https://github.com/ankit20000/DevOpsSRE-PROJECT.git'
+       dest: /opt/ "{{ folder_name }}"
+       version: "{{ branch_name }}"
+      tags: gitclone
+
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+       src: /opt/ "{{ f_name }}"
+       dest: /etc/ "{{ f_name }}"
+       owner: foo
+       group: foo
+       mode: '0644'

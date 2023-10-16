@@ -1,0 +1,31 @@
+---
+- name: Uninstalling the nginx_server on ubuntu
+  hosts: nginx_server
+  become: yes
+  tasks: 
+      - name: uninstall nginx
+        shell: sudo apt remove nginx nginx-commons -y
+
+      - name: Purge the nginx
+        shell: sudo apt purge nginx nginx-commons -y
+
+      - name: remove dependencies
+        shell: sudo apt-get autoremove -y
+   
+   
+   
+   
+   
+   
+   
+    # - name: uninstall nginx
+    #   apt: 
+    #    name: nginx 
+    #    state: absent
+    #    autoremove: yes
+    
+    # - name: stop nginx
+    #   service:
+    #       name: nginx
+    #       state: stopped
+    #       enabled: no

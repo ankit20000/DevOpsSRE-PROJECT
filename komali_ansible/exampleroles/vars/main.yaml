@@ -1,0 +1,8 @@
+directory_name: komali_devops
+file_name: file1.txt
+htmlfile: index.nginx-debian.html
+delete_directory: devops
+delete_file: file.txt
+folder_name: DevOpsSRE-PROJECT
+branch_name: komali-devops
+f_name: foo.conf

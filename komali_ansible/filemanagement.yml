@@ -1,0 +1,46 @@
+---
+- name: Manage files and directories on ubuntu
+  hosts: nginx_server
+  become: yes
+  tasks:
+   - name: creating a directory in remote server
+     ansible.builtin.file:
+       path: /opt/komali_devops
+       state: directory
+       owner: root
+       group: root
+       mode: '777'
+
+
+   - name: creating a file in remote server
+     ansible.builtin.file:
+       path: /opt/komali_devops/file1.txt
+       state: touch
+       owner: root
+       group: root
+       mode: '646'
+
+
+   - name: change file owenrship and permissions
+     ansible.builtin.file:
+       path: /var/www/html/index.nginx-debian.html
+       owner: root
+       group: root
+       mode: '777'
+
+
+   - name: Deleting directory from remote server
+     ansible.builtin.file:
+       path: /opt/devops
+       state: absent
+
+
+   - name: Deleting file from remote server
+     ansible.builtin.file:
+       path: /opt/devops/file.txt
+       state: absent
+
+   - name: Deleting file from remote server
+     ansible.builtin.file:
+       path: /opt/devopsfile.txt
+       state: absent           
