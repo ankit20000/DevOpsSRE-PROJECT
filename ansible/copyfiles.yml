@@ -17,4 +17,5 @@
     - name: copy files  from git to remote
       ansible.builtin.git:
       repo: 'https://github.com/ankit20000/DevOpsSRE-PROJECT.git'
-      dest: /opt/some_directory
+      dest: /opt/{{folder_name}}
+      version:{{branch_name}}
