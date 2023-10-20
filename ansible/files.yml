@@ -1,0 +1,14 @@
+---
+ -name: file
+  hosts: nginx_server
+  become: yes  # Use sudo to run commands as root
+  tasks:
+    - name: create file (create file)
+      ansible.builtin.file:
+      path: /etc/foo.txt
+      state: file
+
+    - name: Remove file (delete file)
+      ansible.builtin.file:
+      path: /etc/foo.txt
+      state: absent
