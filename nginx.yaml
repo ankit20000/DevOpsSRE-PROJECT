@@ -1,0 +1,21 @@
+---
+- name: Updating, Installing and Starting the Ngninx server
+  hosts: nginx_server
+  become: yes
+
+  tasks:
+    - name: updating the nginx package cache
+      apt: 
+        update_cache: yes
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        
+    - name: Starting nginx server
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
