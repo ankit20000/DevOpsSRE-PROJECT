@@ -106,11 +106,5 @@ def lambda_handler(event, context):
     if any(value >= CPU_THRESHOLD for value in values):
         print(f'CPU utilization is above the {CPU_THRESHOLD}. Instance is not stopped.')
     else:
-        sns.publish(
-            TopicArn=topic_arn,  # Use the ARN of the created topic
-            Message=f"EC2 instance {EC2_INSTANCE_ID} is being stopped due to inactivity.",
-            Subject="EC2 Instance Inactivity Alert"
-            ec2.stop_instances(InstanceIds=[EC2_INSTANCE_ID])
-    print(f'CPU utilization below the threshold. Hence Instance is stopped')
-        )
-    
+        ec2.stop_instances(InstanceIds=[EC2_INSTANCE_ID])
+        print(f'CPU utilization below the threshold. Hence Instance is stopped')
