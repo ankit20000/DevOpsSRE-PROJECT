@@ -99,11 +99,19 @@ def lambda_handler(event, context):
         EndTime=end_time
     )
     values = response['MetricDataResults'][0].get('Values', [])
+    
     if values:
         print(f'CPU utilization values at 5 minutes: {values}')
         print(f'CPU utilization at 5 minutes: {values[-1]}%')
-        
-    if any(values >= CPU_THRESHOLD):
+
+    stop_instance = True  # Initialize a variable to determine whether to stop the instance
+
+    for value in values:
+        if value >= CPU_THRESHOLD:
+            stop_instance = False  # Set to False if any value is above the threshold
+            break  # Exit the loop early, no need to check further
+
+    if stop_instance:
         ec2.stop_instances(InstanceIds=[EC2_INSTANCE_ID])
         print(f'CPU utilization below the threshold. Hence Instance is stopped')
     else:
