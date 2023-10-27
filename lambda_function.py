@@ -110,6 +110,7 @@ def lambda_handler(event, context):
             TopicArn=topic_arn,  # Use the ARN of the created topic
             Message=f"EC2 instance {EC2_INSTANCE_ID} is being stopped due to inactivity.",
             Subject="EC2 Instance Inactivity Alert"
-        )
-    ec2.stop_instances(InstanceIds=[EC2_INSTANCE_ID])
+            ec2.stop_instances(InstanceIds=[EC2_INSTANCE_ID])
     print(f'CPU utilization below the threshold. Hence Instance is stopped')
+        )
+    
