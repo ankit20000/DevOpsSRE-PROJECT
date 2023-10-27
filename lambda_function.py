@@ -103,8 +103,8 @@ def lambda_handler(event, context):
         print(f'CPU utilization values at 5 minutes: {values}')
         print(f'CPU utilization at 5 minutes: {values[-1]}%')
         
-    if any(value >= CPU_THRESHOLD for value in values):
-        print(f'CPU utilization is above the {CPU_THRESHOLD}. Instance is not stopped.')
-    else:
+    if any(values >= CPU_THRESHOLD):
         ec2.stop_instances(InstanceIds=[EC2_INSTANCE_ID])
         print(f'CPU utilization below the threshold. Hence Instance is stopped')
+    else:
+        print(f'CPU utilization is above the {CPU_THRESHOLD}. Instance is not stopped.')
