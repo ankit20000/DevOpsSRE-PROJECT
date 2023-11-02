@@ -13,11 +13,39 @@
         name: mysql-server
         state: present
 
-
-    - name: Install docker.
+    - name: Install aptitude
       apt:
-        name: docker.io
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    - name: Install required system packages
+      apt:
+        pkg:       
+          - apt-transport-https 
+          - ca-certificates 
+          - curl 
+          - software-properties-common
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPT apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
         state: present
+
+    - name: Add docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal 
+               stable
+
+    - name: Installation of docker
+      apt:
+        name: docker-ce 
+        state: present
+
+
+
  
 
        
