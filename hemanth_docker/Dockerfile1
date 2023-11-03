@@ -1,0 +1,18 @@
+# Pulling the image 
+FROM ubuntu
+# Doing the update 
+RUN apt update -y
+# Creating a directory 
+RUN mkdir /newapp
+# copying the python file to the new app directory
+COPY . /newapp
+# install python and pip3 
+RUN apt -y install python3-pip
+# navigating to the newapp directory
+WORKDIR /newapp
+# install flask
+RUN pip3 install flask
+# giving the CMD command
+# CMD ["python3","app.py"]
+
+
