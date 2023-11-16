@@ -1,6 +1,6 @@
 # clone the java springboot application link
 
-git clone https://github.com/spring-projects/spring-petclinic.git3
+git clone https://github.com/spring-projects/spring-petclinic.git
 
 
 # build the java spring-boot application
