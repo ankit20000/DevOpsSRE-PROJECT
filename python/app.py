@@ -8,7 +8,7 @@ def hello():
 
 @app.route('/hello')
 def hellovamsi():
-    return "Hello From sailesh"
+    return "Hello "
 
 @app.route('/health')
 def health():
