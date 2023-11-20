@@ -14,7 +14,6 @@ jobs:
     steps:
       - name: clone the git
         uses: actions/checkout@v2
-
-    steps: 
+ 
       - name: hello world
         run: echo "hello world"
