@@ -12,8 +12,8 @@ jobs:
   my_job:
     runs-on: ubuntu-20.04
     steps:
-      - name: clone the git
-        uses: actions/checkout@v2
- 
       - name: hello world
         run: echo "hello world"
+ 
+      - name: checkout 
+        run: actions/checkout@v2
