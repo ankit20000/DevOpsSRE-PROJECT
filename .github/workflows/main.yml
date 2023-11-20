@@ -14,3 +14,7 @@ jobs:
     steps:
       - name: testing
         run: echo "hello world"
+
+    steps: 
+      - name: clone the git
+        run: git clone  https://github.com/ankit20000/DevOpsSRE-PROJECT.git
