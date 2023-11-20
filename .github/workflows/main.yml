@@ -18,5 +18,5 @@ jobs:
       - name: checkout 
         uses: actions/checkout@v2
 
-      - creating a folder
+      - name: creating a folder
         run: mkdir cool1337
