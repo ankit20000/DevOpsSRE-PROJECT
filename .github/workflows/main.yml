@@ -1,0 +1,16 @@
+name: example-basic
+# This workflow represents a set of basic End-to-End tests
+on:
+  push:
+    branches:
+      - 'hemanth_devops'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  my_jon:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: testing
+        uses: echo "hello world"
