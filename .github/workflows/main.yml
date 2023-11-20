@@ -12,9 +12,9 @@ jobs:
   my_job:
     runs-on: ubuntu-20.04
     steps:
-      - name: testing
-        run: echo "hello world"
-
-    steps: 
       - name: clone the git
         uses: actions/checkout@v2
+
+    steps: 
+      - name: hello world
+        run: echo "hello world"
