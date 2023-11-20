@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  my_jon:
+  my_job:
     runs-on: ubuntu-20.04
     steps:
       - name: testing
