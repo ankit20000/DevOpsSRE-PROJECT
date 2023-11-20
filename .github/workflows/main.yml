@@ -23,3 +23,9 @@ jobs:
 
       - name: checkout again
         uses: actions/checkout@v3
+
+  another_job:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: saying good bye
+        run: echo "Good Bye" 
