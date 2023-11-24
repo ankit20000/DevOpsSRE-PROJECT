@@ -1,5 +1,5 @@
 name: example-basic
-# This workflow represents a set of basic End-to-End testing
+# This workflow represents a set of basic End-to-End testing it
 on:
   push:
     branches:
