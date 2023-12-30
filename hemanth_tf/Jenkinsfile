@@ -1,0 +1,58 @@
+pipeline {
+    agent
+    {
+        label 'another node'
+    }
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('cloning repository') {
+            steps {
+                git branch: 'hemanth_devops', credentialsId: 'github', url: 'https://github.com/ankit20000/DevOpsSRE-PROJECT.git'
+         }
+     }
+     
+     stage('change directory') {
+            steps {
+                    dir('/home/jenkins/workspace/Eks-project/Eks-file/hemanth_tf') {
+                        sh 'ls'
+            }
+        }
+     }
+     
+     stage('terraform init') {
+            steps {
+                dir('/home/jenkins/workspace/Eks-project/Eks-file/hemanth_tf') {
+                sh 'terraform init'
+            }
+        }
+     }
+    stage('terraform plan') {
+            steps {
+                dir('/home/jenkins/workspace/Eks-project/Eks-file/hemanth_tf') {
+                sh 'terraform plan'
+            }
+        }
+    }
+    stage('terraform apply') {
+            steps {
+                    dir('/home/jenkins/workspace/Eks-project/Eks-file/hemanth_tf') {
+                    sh 'terraform apply --target=aws_vpc.vpc_custom -auto-approve'
+                 }
+            }
+        }
+    stage('terraform destroy') {
+            steps {
+                    dir('/home/jenkins/workspace/Eks-project/Eks-file/hemanth_tf') {
+                    sh 'terraform destroy --target=aws_vpc.vpc_custom -auto-approve'
+                 }
+            }
+        }
+    }
+}
+
+     
