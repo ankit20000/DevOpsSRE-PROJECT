@@ -10,6 +10,12 @@ pipeline {
                 echo 'Hello World'
             }
         }
+
+        stage('deleting the current workspace') {
+            steps {
+                        deleteDir()
+                }
+            }
         stage('cloning repository') {
             steps {
                 git branch: 'hemanth_devops', credentialsId: 'github', url: 'https://github.com/ankit20000/DevOpsSRE-PROJECT.git'
